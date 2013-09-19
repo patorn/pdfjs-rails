@@ -13,73 +13,135 @@
  * limitations under the License.
  */
 
-#outerContainer { overflow: hidden; }
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: #404040;
+  background-image: url(<%= asset_path "texture.png" %>);
+}
+
+body,
+input,
+button,
+select {
+  font: message-box;
+}
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 [hidden] {
   display: none !important;
 }
 
-#scaleSelect {
-  height: 20px;
-  line-height: 20px;
-}
-
 #viewerContainer:-webkit-full-screen {
   top: 0px;
-  border-top: 5px solid transparent;
+  border-top: 2px solid transparent;
   background-color: #404040;
-  background-image: url(<%= asset_path 'texture.png' %>);
+  background-image: url(<%= asset_path "texture.png" %>);
   width: 100%;
   height: 100%;
   overflow: hidden;
+  cursor: none;
 }
 
 #viewerContainer:-moz-full-screen {
   top: 0px;
-  border-top: 5px solid transparent;
+  border-top: 2px solid transparent;
   background-color: #404040;
-  background-image: url(<%= asset_path 'texture.png' %>);
+  background-image: url(<%= asset_path "texture.png" %>);
   width: 100%;
   height: 100%;
   overflow: hidden;
+  cursor: none;
 }
 
-:-webkit-full-screen .page:last-child {
-  margin-bottom: 40px;
-}
-
-:-moz-full-screen .page:last-child {
-  margin-bottom: 40px;
-}
-
-#viewerContainer:full-screen {
-  top: 0px;
-  background-color: #404040;
-  background-image: url(<%= asset_path 'texture.png' %>);
+#viewerContainer:-ms-fullscreen {
+  top: 0px !important;
+  border-top: 2px solid transparent;
   width: 100%;
   height: 100%;
+  overflow: hidden !important;
+  cursor: none;
+}
+
+#viewerContainer:-ms-fullscreen::-ms-backdrop {
+  background-color: #404040;
+  background-image: url(<%= asset_path "texture.png" %>);
+}
+
+#viewerContainer:fullscreen {
+  top: 0px;
+  border-top: 2px solid transparent;
+  background-color: #404040;
+  background-image: url(<%= asset_path "texture.png" %>);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: none;
+}
+
+:-webkit-full-screen .page {
+  margin-bottom: 100%;
+}
+
+:-moz-full-screen .page {
+  margin-bottom: 100%;
+}
+
+:-ms-fullscreen .page {
+  margin-bottom: 100% !important;
+}
+
+:fullscreen .page {
+  margin-bottom: 100%;
+}
+
+:-webkit-full-screen a:not(.internalLink) {
+  display: none;
+}
+
+:-moz-full-screen a:not(.internalLink) {
+  display: none;
+}
+
+:-ms-fullscreen a:not(.internalLink) {
+  display: none !important;
+}
+
+:fullscreen a:not(.internalLink) {
+  display: none;
+}
+
+#viewerContainer.presentationControls {
+  cursor: default;
 }
 
 /* outer/inner center provides horizontal center */
-#outerContainer[dir='ltr'] .outerCenter {
+html[dir='ltr'] .outerCenter {
   float: right;
   position: relative;
   right: 50%;
 }
-#outerContainer[dir='rtl'] .outerCenter {
+html[dir='rtl'] .outerCenter {
   float: left;
   position: relative;
   left: 50%;
 }
-#outerContainer[dir='ltr'] .innerCenter {
+html[dir='ltr'] .innerCenter {
   float: right;
   position: relative;
   right: -50%;
 }
-#outerContainer[dir='rtl'] .innerCenter {
+html[dir='rtl'] .innerCenter {
   float: left;
   position: relative;
   left: -50%;
@@ -88,21 +150,6 @@
 #outerContainer {
   width: 100%;
   height: 100%;
-  background-image: url(<%= asset_path 'texture.png' %>);
-  position: relative;
-}
-
-/*#outerContainer * {
-  padding: 0;
-  margin: 0;
-}
-*/
-
-#outerContainer,
-#outerContainer input,
-#outerContainer button,
-#outerContainer select {
-  font: message-box;
 }
 
 #sidebarContainer {
@@ -113,28 +160,17 @@
   visibility: hidden;
   -webkit-transition-duration: 200ms;
   -webkit-transition-timing-function: ease;
-  -moz-transition-duration: 200ms;
-  -moz-transition-timing-function: ease;
-  -ms-transition-duration: 200ms;
-  -ms-transition-timing-function: ease;
-  -o-transition-duration: 200ms;
-  -o-transition-timing-function: ease;
   transition-duration: 200ms;
   transition-timing-function: ease;
-  
+
 }
-#outerContainer[dir='ltr'] #sidebarContainer {
+html[dir='ltr'] #sidebarContainer {
   -webkit-transition-property: left;
-  -moz-transition-property: left;
-  -ms-transition-property: left;
-  -o-transition-property: left;
   transition-property: left;
   left: -200px;
 }
-#outerContainer[dir='rtl'] #sidebarContainer {
+html[dir='rtl'] #sidebarContainer {
   -webkit-transition-property: right;
-  -ms-transition-property: right;
-  -o-transition-property: right;
   transition-property: right;
   right: -200px;
 }
@@ -143,10 +179,10 @@
 #outerContainer.sidebarOpen > #sidebarContainer {
   visibility: visible;
 }
-#outerContainer[dir='ltr'].sidebarOpen > #sidebarContainer {
+html[dir='ltr'] #outerContainer.sidebarOpen > #sidebarContainer {
   left: 0px;
 }
-#outerContainer[dir='rtl'].sidebarOpen > #sidebarContainer {
+html[dir='rtl'] #outerContainer.sidebarOpen > #sidebarContainer {
   right: 0px;
 }
 
@@ -156,30 +192,19 @@
   right: 0;
   bottom: 0;
   left: 0;
+  min-width: 320px;
   -webkit-transition-duration: 200ms;
   -webkit-transition-timing-function: ease;
-  -moz-transition-duration: 200ms;
-  -moz-transition-timing-function: ease;
-  -ms-transition-duration: 200ms;
-  -ms-transition-timing-function: ease;
-  -o-transition-duration: 200ms;
-  -o-transition-timing-function: ease;
   transition-duration: 200ms;
   transition-timing-function: ease;
 }
-#outerContainer[dir='ltr'].sidebarOpen > #mainContainer {
+html[dir='ltr'] #outerContainer.sidebarOpen > #mainContainer {
   -webkit-transition-property: left;
-  -moz-transition-property: left;
-  -ms-transition-property: left;
-  -o-transition-property: left;
   transition-property: left;
   left: 200px;
 }
-#outerContainer[dir='rtl'].sidebarOpen > #mainContainer {
+html[dir='rtl'] #outerContainer.sidebarOpen > #mainContainer {
   -webkit-transition-property: right;
-  -moz-transition-property: right;
-  -ms-transition-property: right;
-  -o-transition-property: right;
   transition-property: right;
   right: 200px;
 }
@@ -194,29 +219,28 @@
   background-color: hsla(0,0%,0%,.1);
   box-shadow: inset -1px 0 0 hsla(0,0%,0%,.25);
 }
-#outerContainer[dir='ltr'] #sidebarContent {
+html[dir='ltr'] #sidebarContent {
   left: 0;
 }
-#outerContainer[dir='rtl'] #sidebarContent {
+html[dir='rtl'] #sidebarContent {
   right: 0;
 }
 
 #viewerContainer {
   overflow: auto;
   box-shadow: inset 1px 0 0 hsla(0,0%,100%,.05);
-  padding-top: 30px;
   position: absolute;
   top: 32px;
   right: 0;
   bottom: 0;
   left: 0;
+  outline: none;
 }
 
-#toolbarViewer .toolbar {
-  position: absolute;
+.toolbar {
+  position: relative;
   left: 0;
   right: 0;
-  height: 32px;
   z-index: 9999;
   cursor: default;
 }
@@ -227,19 +251,24 @@
 
 #toolbarSidebar {
   width: 200px;
-  height: 29px;
-  background: #464646;
-  background-image: url(<%= asset_path 'texture.png' %>),
-                    -webkit-linear-gradient(hsla(0,0%,30%,.99), hsla(0,0%,25%,.95));
-  background-image: url(<%= asset_path 'texture.png' %>),
-                    -moz-linear-gradient(hsla(0,0%,30%,.99), hsla(0,0%,25%,.95));
-  background-image: url(<%= asset_path 'texture.png' %>),
-                    -ms-linear-gradient(hsla(0,0%,30%,.99), hsla(0,0%,25%,.95));
-  background-image: url(<%= asset_path 'texture.png' %>),
-                    -o-linear-gradient(hsla(0,0%,30%,.99), hsla(0,0%,25%,.95));
-  background-image: url(<%= asset_path 'texture.png' %>),
+  height: 32px;
+  background-color: #424242; /* fallback */
+  background-image: url(<%= asset_path "texture.png" %>),
                     linear-gradient(hsla(0,0%,30%,.99), hsla(0,0%,25%,.95));
-  box-shadow: inset -2px 0 0 hsla(0,0%,100%,.08),
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25),
+
+              inset 0 -1px 0 hsla(0,0%,100%,.05),
+              0 1px 0 hsla(0,0%,0%,.15),
+              0 0 1px hsla(0,0%,0%,.1);
+}
+
+#toolbarContainer, .findbar, .secondaryToolbar {
+  position: relative;
+  height: 32px;
+  background-color: #474747; /* fallback */
+  background-image: url(<%= asset_path "texture.png" %>),
+                    linear-gradient(hsla(0,0%,32%,.99), hsla(0,0%,27%,.95));
+  box-shadow: inset 1px 0 0 hsla(0,0%,100%,.08),
               inset 0 1px 1px hsla(0,0%,0%,.15),
               inset 0 -1px 0 hsla(0,0%,100%,.05),
               0 1px 0 hsla(0,0%,0%,.15),
@@ -247,75 +276,229 @@
 }
 
 #toolbarViewer {
-  position: relative;
   height: 32px;
-  background: #505050;
-  background-image: url(<%= asset_path 'texture.png' %>),
-                    -webkit-linear-gradient(hsla(0,0%,32%,.99), hsla(0,0%,27%,.95));
-  background-image: url(<%= asset_path 'texture.png' %>),
-                    -moz-linear-gradient(hsla(0,0%,32%,.99), hsla(0,0%,27%,.95));
-  background-image: url(<%= asset_path 'texture.png' %>),
-                    -ms-linear-gradient(hsla(0,0%,32%,.99), hsla(0,0%,27%,.95));
-  background-image: url(<%= asset_path 'texture.png' %>),
-                    -o-linear-gradient(hsla(0,0%,32%,.99), hsla(0,0%,27%,.95));
-  background-image: url(<%= asset_path 'texture.png' %>),
-                    linear-gradient(hsla(0,0%,32%,.99), hsla(0,0%,27%,.95));
-  border-left: 1px solid hsla(0,0%,0%,.5);
-  box-shadow: inset 1px 0 0 hsla(0,0%,100%,.08),
-              inset 0 1px 1px hsla(0,0%,0%,.15),
-              inset 0 -1px 0 hsla(0,0%,100%,.05),
-              0 1px 0 hsla(0,0%,0%,.15),
-              0 1px 1px hsla(0,0%,0%,.1);
 }
-#outerContainer[dir='ltr'] #toolbarViewerLeft {
+
+#loadingBar {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background-color: #333;
+  border-bottom: 1px solid #333;
+}
+
+#loadingBar .progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: #ddd;
+  overflow: hidden;
+  -webkit-transition: width 200ms;
+  transition: width 200ms;
+}
+
+@-webkit-keyframes progressIndeterminate {
+  0% { left: 0%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+@keyframes progressIndeterminate {
+  0% { left: 0%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+#loadingBar .progress.indeterminate {
+  background-color: #999;
+  -webkit-transition: none;
+  transition: none;
+}
+
+#loadingBar .indeterminate .glimmer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 50px;
+
+  background-image: linear-gradient(to right, #999 0%, #fff 50%, #999 100%);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+
+  -webkit-animation: progressIndeterminate 2s linear infinite;
+  animation: progressIndeterminate 2s linear infinite;
+}
+
+.findbar, .secondaryToolbar {
+  top: 32px;
+  position: absolute;
+  z-index: 10000;
+  height: 32px;
+
+  min-width: 16px;
+  padding: 0px 6px 0px 6px;
+  margin: 4px 2px 4px 2px;
+  color: hsl(0,0%,85%);
+  font-size: 12px;
+  line-height: 14px;
+  text-align: left;
+  cursor: default;
+}
+
+html[dir='ltr'] .findbar {
+  left: 68px;
+}
+
+html[dir='rtl'] .findbar {
+  right: 68px;
+}
+
+.findbar label {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+#findInput[data-status="pending"] {
+  background-image: url(<%= asset_path "loading-small.png" %>);
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.secondaryToolbar {
+  padding: 6px;
+  height: auto;
+  z-index: 30000;
+}
+html[dir='ltr'] .secondaryToolbar {
+  right: 4px;
+}
+html[dir='rtl'] .secondaryToolbar {
+  left: 4px;
+}
+
+#secondaryToolbarButtonContainer {
+  max-width: 200px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.doorHanger,
+.doorHangerRight {
+  border: 1px solid hsla(0,0%,0%,.5);
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+.doorHanger:after, .doorHanger:before,
+.doorHangerRight:after, .doorHangerRight:before {
+  bottom: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.doorHanger:after,
+.doorHangerRight:after {
+  border-bottom-color: hsla(0,0%,32%,.99);
+  border-width: 8px;
+}
+.doorHanger:before,
+.doorHangerRight:before {
+  border-bottom-color: hsla(0,0%,0%,.5);
+  border-width: 9px;
+}
+
+html[dir='ltr'] .doorHanger:after,
+html[dir='rtl'] .doorHangerRight:after {
+  left: 13px;
+  margin-left: -8px;
+}
+
+html[dir='ltr'] .doorHanger:before,
+html[dir='rtl'] .doorHangerRight:before {
+  left: 13px;
+  margin-left: -9px;
+}
+
+html[dir='rtl'] .doorHanger:after,
+html[dir='ltr'] .doorHangerRight:after {
+  right: 13px;
+  margin-right: -8px;
+}
+
+html[dir='rtl'] .doorHanger:before,
+html[dir='ltr'] .doorHangerRight:before {
+  right: 13px;
+  margin-right: -9px;
+}
+
+#findMsg {
+  font-style: italic;
+  color: #A6B7D0;
+}
+
+.notFound {
+  background-color: rgb(255, 137, 153);
+}
+
+html[dir='ltr'] #toolbarViewerLeft {
   margin-left: -1px;
 }
-#outerContainer[dir='rtl'] #toolbarViewerRight {
+html[dir='rtl'] #toolbarViewerRight {
   margin-left: -1px;
 }
 
 
-#outerContainer[dir='ltr'] #toolbarViewerLeft,
-#outerContainer[dir='rtl'] #toolbarViewerRight {
+html[dir='ltr'] #toolbarViewerLeft,
+html[dir='rtl'] #toolbarViewerRight {
   position: absolute;
   top: 0;
   left: 0;
 }
-#outerContainer[dir='ltr'] #toolbarViewerRight,
-#outerContainer[dir='rtl'] #toolbarViewerLeft {
+html[dir='ltr'] #toolbarViewerRight,
+html[dir='rtl'] #toolbarViewerLeft {
   position: absolute;
   top: 0;
   right: 0;
 }
-#outerContainer[dir='ltr'] #toolbarViewerLeft > *,
-#outerContainer[dir='ltr'] #toolbarViewerMiddle > *,
-#outerContainer[dir='ltr'] #toolbarViewerRight > * {
+html[dir='ltr'] #toolbarViewerLeft > *,
+html[dir='ltr'] #toolbarViewerMiddle > *,
+html[dir='ltr'] #toolbarViewerRight > *,
+html[dir='ltr'] .findbar > * {
+  position: relative;
   float: left;
 }
-#outerContainer[dir='rtl'] #toolbarViewerLeft > *,
-#outerContainer[dir='rtl'] #toolbarViewerMiddle > *,
-#outerContainer[dir='rtl'] #toolbarViewerRight > * {
+html[dir='rtl'] #toolbarViewerLeft > *,
+html[dir='rtl'] #toolbarViewerMiddle > *,
+html[dir='rtl'] #toolbarViewerRight > *,
+html[dir='rtl'] .findbar > * {
+  position: relative;
   float: right;
 }
 
-#outerContainer[dir='ltr'] .splitToolbarButton {
+html[dir='ltr'] .splitToolbarButton {
   margin: 3px 2px 4px 0;
   display: inline-block;
 }
-#outerContainer[dir='rtl'] .splitToolbarButton {
+html[dir='rtl'] .splitToolbarButton {
   margin: 3px 0 4px 2px;
   display: inline-block;
 }
-#outerContainer[dir='ltr'] .splitToolbarButton > .toolbarButton {
+html[dir='ltr'] .splitToolbarButton > .toolbarButton {
   border-radius: 0;
   float: left;
 }
-#outerContainer[dir='rtl'] .splitToolbarButton > .toolbarButton {
+html[dir='rtl'] .splitToolbarButton > .toolbarButton {
   border-radius: 0;
   float: right;
 }
 
-#toolbarViewer .toolbarButton {
+.toolbarButton,
+.secondaryToolbarButton {
   border: 0 none;
   background-color: rgba(0, 0, 0, 0);
   width: 32px;
@@ -329,12 +512,13 @@
   overflow: hidden;
 }
 
-.toolbarButton[disabled] {
+.toolbarButton[disabled],
+.secondaryToolbarButton[disabled] {
   opacity: .5;
 }
 
 .toolbarButton.group {
-  margin-right:0;
+  margin-right: 0;
 }
 
 .splitToolbarButton.toggled .toolbarButton {
@@ -346,10 +530,6 @@
 .splitToolbarButton.toggled > .toolbarButton,
 .toolbarButton.textButton {
   background-color: hsla(0,0%,0%,.12);
-  background-image: -webkit-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
-  background-image: -moz-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
-  background-image: -ms-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
-  background-image: -o-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
   background-image: linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
   background-clip: padding-box;
   border: 1px solid hsla(0,0%,0%,.35);
@@ -360,33 +540,24 @@
   -webkit-transition-property: background-color, border-color, box-shadow;
   -webkit-transition-duration: 150ms;
   -webkit-transition-timing-function: ease;
-  -moz-transition-property: background-color, border-color, box-shadow;
-  -moz-transition-duration: 150ms;
-  -moz-transition-timing-function: ease;
-  -ms-transition-property: background-color, border-color, box-shadow;
-  -ms-transition-duration: 150ms;
-  -ms-transition-timing-function: ease;
-  -o-transition-property: background-color, border-color, box-shadow;
-  -o-transition-duration: 150ms;
-  -o-transition-timing-function: ease;
   transition-property: background-color, border-color, box-shadow;
   transition-duration: 150ms;
   transition-timing-function: ease;
 
 }
-#toolbarViewer .splitToolbarButton > .toolbarButton:hover,
-#toolbarViewer .splitToolbarButton > .toolbarButton:focus,
-#toolbarViewer .dropdownToolbarButton:hover,
-#toolbarViewer .toolbarButton.textButton:hover,
-#toolbarViewer .toolbarButton.textButton:focus {
+.splitToolbarButton > .toolbarButton:hover,
+.splitToolbarButton > .toolbarButton:focus,
+.dropdownToolbarButton:hover,
+.toolbarButton.textButton:hover,
+.toolbarButton.textButton:focus {
   background-color: hsla(0,0%,0%,.2);
   box-shadow: 0 1px 0 hsla(0,0%,100%,.05) inset,
               0 0 1px hsla(0,0%,100%,.15) inset,
               0 0 1px hsla(0,0%,0%,.05);
   z-index: 199;
 }
-#outerContainer[dir='ltr'] .splitToolbarButton > .toolbarButton:first-child,
-#outerContainer[dir='rtl'] .splitToolbarButton > .toolbarButton:last-child {
+html[dir='ltr'] .splitToolbarButton > .toolbarButton:first-child,
+html[dir='rtl'] .splitToolbarButton > .toolbarButton:last-child {
   position: relative;
   margin: 0;
   margin-right: -1px;
@@ -394,8 +565,8 @@
   border-bottom-left-radius: 2px;
   border-right-color: transparent;
 }
-#outerContainer[dir='ltr'] .splitToolbarButton > .toolbarButton:last-child,
-#outerContainer[dir='rtl'] .splitToolbarButton > .toolbarButton:first-child {
+html[dir='ltr'] .splitToolbarButton > .toolbarButton:last-child,
+html[dir='rtl'] .splitToolbarButton > .toolbarButton:first-child {
   position: relative;
   margin: 0;
   margin-left: -1px;
@@ -406,88 +577,69 @@
 .splitToolbarButtonSeparator {
   padding: 8px 0;
   width: 1px;
-  background-color: hsla(0,0%,00%,.5);
+  background-color: hsla(0,0%,0%,.5);
   z-index: 99;
   box-shadow: 0 0 0 1px hsla(0,0%,100%,.08);
   display: inline-block;
   margin: 5px 0;
 }
-#outerContainer[dir='ltr'] .splitToolbarButtonSeparator {
-  float:left;
+html[dir='ltr'] .splitToolbarButtonSeparator {
+  float: left;
 }
-#outerContainer[dir='rtl'] .splitToolbarButtonSeparator {
-  float:right;
+html[dir='rtl'] .splitToolbarButtonSeparator {
+  float: right;
 }
 .splitToolbarButton:hover > .splitToolbarButtonSeparator,
 .splitToolbarButton.toggled > .splitToolbarButtonSeparator {
   padding: 12px 0;
-  margin: 0;
+  margin: 1px 0;
   box-shadow: 0 0 0 1px hsla(0,0%,100%,.03);
   -webkit-transition-property: padding;
   -webkit-transition-duration: 10ms;
   -webkit-transition-timing-function: ease;
-  -moz-transition-property: padding;
-  -moz-transition-duration: 10ms;
-  -moz-transition-timing-function: ease;
-  -ms-transition-property: padding;
-  -ms-transition-duration: 10ms;
-  -ms-transition-timing-function: ease;
-  -o-transition-property: padding;
-  -o-transition-duration: 10ms;
-  -o-transition-timing-function: ease;
   transition-property: padding;
   transition-duration: 10ms;
   transition-timing-function: ease;
 }
 
-#toolbarViewer .toolbarButton,
-#toolbarViewer .dropdownToolbarButton {
+.toolbarButton,
+.dropdownToolbarButton,
+.secondaryToolbarButton {
   min-width: 16px;
   padding: 2px 6px 0;
   border: 1px solid transparent;
   border-radius: 2px;
-  color: hsl(0,0%,95%);
+  color: hsla(0,0%,100%,.8);
   font-size: 12px;
   line-height: 14px;
-  -webkit-user-select:none;
-  -moz-user-select:none;
-  -ms-user-select:none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   /* Opera does not support user-select, use <... unselectable="on"> instead */
   cursor: default;
   -webkit-transition-property: background-color, border-color, box-shadow;
   -webkit-transition-duration: 150ms;
   -webkit-transition-timing-function: ease;
-  -moz-transition-property: background-color, border-color, box-shadow;
-  -moz-transition-duration: 150ms;
-  -moz-transition-timing-function: ease;
-  -ms-transition-property: background-color, border-color, box-shadow;
-  -ms-transition-duration: 150ms;
-  -ms-transition-timing-function: ease;
-  -o-transition-property: background-color, border-color, box-shadow;
-  -o-transition-duration: 150ms;
-  -o-transition-timing-function: ease;
   transition-property: background-color, border-color, box-shadow;
   transition-duration: 150ms;
   transition-timing-function: ease;
 }
 
-#outerContainer[dir='ltr'] .toolbarButton,
-#outerContainer[dir='ltr'] .dropdownToolbarButton {
+html[dir='ltr'] .toolbarButton,
+html[dir='ltr'] .dropdownToolbarButton {
   margin: 3px 2px 4px 0;
 }
-#outerContainer[dir='rtl'] .toolbarButton,
-#outerContainer[dir='rtl'] .dropdownToolbarButton {
+html[dir='rtl'] .toolbarButton,
+html[dir='rtl'] .dropdownToolbarButton {
   margin: 3px 0 4px 2px;
 }
 
-#toolbarViewer .toolbarButton:hover,
-#toolbarViewer .toolbarButton:focus,
-#toolbarViewer .dropdownToolbarButton {
+.toolbarButton:hover,
+.toolbarButton:focus,
+.dropdownToolbarButton,
+.secondaryToolbarButton:hover,
+.secondaryToolbarButton:focus {
   background-color: hsla(0,0%,0%,.12);
-  background-image: -webkit-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
-  background-image: -moz-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
-  background-image: -ms-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
-  background-image: -o-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
   background-image: linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
   background-clip: padding-box;
   border: 1px solid hsla(0,0%,0%,.35);
@@ -498,12 +650,9 @@
 }
 
 .toolbarButton:hover:active,
-.dropdownToolbarButton:hover:active {
+.dropdownToolbarButton:hover:active,
+.secondaryToolbarButton:hover:active {
   background-color: hsla(0,0%,0%,.2);
-  background-image: -webkit-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
-  background-image: -moz-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
-  background-image: -ms-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
-  background-image: -o-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
   background-image: linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
   border-color: hsla(0,0%,0%,.35) hsla(0,0%,0%,.4) hsla(0,0%,0%,.45);
   box-shadow: 0 1px 1px hsla(0,0%,0%,.1) inset,
@@ -512,27 +661,15 @@
   -webkit-transition-property: background-color, border-color, box-shadow;
   -webkit-transition-duration: 10ms;
   -webkit-transition-timing-function: linear;
-  -moz-transition-property: background-color, border-color, box-shadow;
-  -moz-transition-duration: 10ms;
-  -moz-transition-timing-function: linear;
-  -ms-transition-property: background-color, border-color, box-shadow;
-  -ms-transition-duration: 10ms;
-  -ms-transition-timing-function: linear;
-  -o-transition-property: background-color, border-color, box-shadow;
-  -o-transition-duration: 10ms;
-  -o-transition-timing-function: linear;
   transition-property: background-color, border-color, box-shadow;
   transition-duration: 10ms;
   transition-timing-function: linear;
 }
 
 .toolbarButton.toggled,
-.splitToolbarButton.toggled > .toolbarButton.toggled {
+.splitToolbarButton.toggled > .toolbarButton.toggled,
+.secondaryToolbarButton.toggled {
   background-color: hsla(0,0%,0%,.3);
-  background-image: -webkit-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
-  background-image: -moz-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
-  background-image: -ms-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
-  background-image: -o-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
   background-image: linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
   border-color: hsla(0,0%,0%,.4) hsla(0,0%,0%,.45) hsla(0,0%,0%,.5);
   box-shadow: 0 1px 1px hsla(0,0%,0%,.1) inset,
@@ -541,22 +678,14 @@
   -webkit-transition-property: background-color, border-color, box-shadow;
   -webkit-transition-duration: 10ms;
   -webkit-transition-timing-function: linear;
-  -moz-transition-property: background-color, border-color, box-shadow;
-  -moz-transition-duration: 10ms;
-  -moz-transition-timing-function: linear;
-  -ms-transition-property: background-color, border-color, box-shadow;
-  -ms-transition-duration: 10ms;
-  -ms-transition-timing-function: linear;
-  -o-transition-property: background-color, border-color, box-shadow;
-  -o-transition-duration: 10ms;
-  -o-transition-timing-function: linear;
   transition-property: background-color, border-color, box-shadow;
   transition-duration: 10ms;
   transition-timing-function: linear;
 }
 
 .toolbarButton.toggled:hover:active,
-.splitToolbarButton.toggled > .toolbarButton.toggled:hover:active {
+.splitToolbarButton.toggled > .toolbarButton.toggled:hover:active,
+.secondaryToolbarButton.toggled:hover:active {
   background-color: hsla(0,0%,0%,.4);
   border-color: hsla(0,0%,0%,.4) hsla(0,0%,0%,.5) hsla(0,0%,0%,.55);
   box-shadow: 0 1px 1px hsla(0,0%,0%,.2) inset,
@@ -564,33 +693,33 @@
               0 1px 0 hsla(0,0%,100%,.05);
 }
 
-#toolbarViewer .dropdownToolbarButton {
-  min-width: 120px;
+.dropdownToolbarButton {
+  width: 120px;
   max-width: 120px;
   padding: 3px 2px 2px;
   overflow: hidden;
-  background: url(<%= asset_path 'toolbarButton-menuArrows.png' %>) no-repeat;
+  background: url(<%= asset_path "toolbarButton-menuArrows.png" %>) no-repeat;
 }
-#outerContainer[dir='ltr'] .dropdownToolbarButton {
+html[dir='ltr'] .dropdownToolbarButton {
   background-position: 95%;
 }
-#outerContainer[dir='rtl'] .dropdownToolbarButton {
+html[dir='rtl'] .dropdownToolbarButton {
   background-position: 5%;
 }
 
-#toolbarViewer .dropdownToolbarButton > select {
+.dropdownToolbarButton > select {
   -webkit-appearance: none;
   -moz-appearance: none; /* in the future this might matter, see bugzilla bug #649849 */
   min-width: 140px;
   font-size: 12px;
   color: hsl(0,0%,95%);
-  margin:0;
-  padding:0;
-  border:none;
+  margin: 0;
+  padding: 0;
+  border: none;
   background: rgba(0,0,0,0); /* Opera does not support 'transparent' <select> background */
 }
 
-#toolbarViewer .dropdownToolbarButton > select > option {
+.dropdownToolbarButton > select > option {
   background: hsl(0,0%,24%);
 }
 
@@ -602,87 +731,138 @@
   border-bottom: 1px rgba(255, 255, 255, .5) solid;
 }
 
-#outerContainer[dir='ltr'] .splitToolbarButton:first-child,
-#outerContainer[dir='ltr'] .toolbarButton:first-child,
-#outerContainer[dir='rtl'] .splitToolbarButton:last-child,
-#outerContainer[dir='rtl'] .toolbarButton:last-child {
+html[dir='ltr'] .splitToolbarButton:first-child,
+html[dir='ltr'] .toolbarButton:first-child,
+html[dir='rtl'] .splitToolbarButton:last-child,
+html[dir='rtl'] .toolbarButton:last-child {
   margin-left: 4px;
 }
-#outerContainer[dir='ltr'] .splitToolbarButton:last-child,
-#outerContainer[dir='ltr'] .toolbarButton:last-child,
-#outerContainer[dir='rtl'] .splitToolbarButton:first-child,
-#outerContainer[dir='rtl'] .toolbarButton:first-child {
+html[dir='ltr'] .splitToolbarButton:last-child,
+html[dir='ltr'] .toolbarButton:last-child,
+html[dir='rtl'] .splitToolbarButton:first-child,
+html[dir='rtl'] .toolbarButton:first-child {
   margin-right: 4px;
 }
 
-#toolbarViewer .toolbarButtonSpacer {
+.toolbarButtonSpacer {
   width: 30px;
   display: inline-block;
   height: 1px;
 }
 
-#toolbarViewer .toolbarButtonFlexibleSpacer {
+.toolbarButtonFlexibleSpacer {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   min-width: 30px;
 }
 
+html[dir='ltr'] #findPrevious {
+  margin-left: 3px;
+}
+html[dir='ltr'] #findNext {
+  margin-right: 3px;
+}
+
+html[dir='rtl'] #findPrevious {
+  margin-right: 3px;
+}
+html[dir='rtl'] #findNext {
+  margin-left: 3px;
+}
+
+.toolbarButton::before,
+.secondaryToolbarButton::before {
+  /* All matching images have a size of 16x16
+   * (except for the print button: 18x16)
+   * All relevant containers have a size of 32x25 */
+  position: absolute;
+  display: inline-block;
+  top: 4px;
+  left: 7px;
+}
+html[dir="ltr"] .secondaryToolbarButton::before {
+  left: 4px;
+}
+html[dir="rtl"] .secondaryToolbarButton::before {
+  right: 4px;
+}
+
 .toolbarButton#sidebarToggle::before {
-  display: inline-block;
-  content: url(<%= asset_path 'toolbarButton-sidebarToggle.png' %>);
-}
-    
-#outerContainer[dir='ltr'] .toolbarButton.pageUp::before {
-  display: inline-block;
-  content: url(<%= asset_path 'toolbarButton-pageUp.png' %>);
+  content: url(<%= asset_path "toolbarButton-sidebarToggle.png" %>);
 }
 
-#outerContainer[dir='rtl'] .toolbarButton.pageUp::before {
-  display: inline-block;
-  content: url(<%= asset_path 'toolbarButton-pageUp-rtl.png' %>);
-}
-    
-#outerContainer[dir='ltr'] .toolbarButton.pageDown::before {
-  display: inline-block;
-  content: url(<%= asset_path 'toolbarButton-pageDown.png' %>);
+.toolbarButton#secondaryToolbarToggle::before {
+  content: url(<%= asset_path "toolbarButton-secondaryToolbarToggle.png" %>);
 }
 
-#outerContainer[dir='rtl'] .toolbarButton.pageDown::before {
-  display: inline-block;
-  content: url(<%= asset_path 'toolbarButton-pageDown-rtl.png' %>);
+html[dir='ltr'] .toolbarButton.findPrevious::before {
+  content: url(<%= asset_path "findbarButton-previous.png" %>);
 }
 
-#toolbarViewer .toolbarButton.zoomOut::before {
-  display: inline-block;
-  content: url(<%= asset_path 'toolbarButton-zoomOut.png' %>);
-}
-    
-#toolbarViewer .toolbarButton.zoomIn::before {
-  display: inline-block;
-  content: url(<%= asset_path 'toolbarButton-zoomIn.png' %>);
+html[dir='rtl'] .toolbarButton.findPrevious::before {
+  content: url(<%= asset_path "findbarButton-previous-rtl.png" %>);
 }
 
-#toolbarViewer .toolbarButton.fullscreen::before {
-  display: inline-block;
-  content: url(<%= asset_path 'toolbarButton-fullscreen.png' %>);
+html[dir='ltr'] .toolbarButton.findNext::before {
+  content: url(<%= asset_path "findbarButton-next.png" %>);
 }
 
-#toolbarViewer .toolbarButton.print::before {
-  display: inline-block;
-  content: url(<%= asset_path 'toolbarButton-print.png' %>);
+html[dir='rtl'] .toolbarButton.findNext::before {
+  content: url(<%= asset_path "findbarButton-next-rtl.png" %>);
 }
 
-#toolbarViewer .toolbarButton.openFile::before {
-  display: inline-block;
-  content: url(<%= asset_path 'toolbarButton-openFile.png' %>);
+html[dir='ltr'] .toolbarButton.pageUp::before {
+  content: url(<%= asset_path "toolbarButton-pageUp.png" %>);
 }
 
-#toolbarViewer .toolbarButton.download::before {
-  display: inline-block;
-  content: url(<%= asset_path 'toolbarButton-download.png' %>);
+html[dir='rtl'] .toolbarButton.pageUp::before {
+  content: url(<%= asset_path "toolbarButton-pageUp-rtl.png" %>);
 }
 
-#toolbarViewer .toolbarButton.bookmark {
+html[dir='ltr'] .toolbarButton.pageDown::before {
+  content: url(<%= asset_path "toolbarButton-pageDown.png" %>);
+}
+
+html[dir='rtl'] .toolbarButton.pageDown::before {
+  content: url(<%= asset_path "toolbarButton-pageDown-rtl.png" %>);
+}
+
+.toolbarButton.zoomOut::before {
+  content: url(<%= asset_path "toolbarButton-zoomOut.png" %>);
+}
+
+.toolbarButton.zoomIn::before {
+  content: url(<%= asset_path "toolbarButton-zoomIn.png" %>);
+}
+
+.toolbarButton.presentationMode::before,
+.secondaryToolbarButton.presentationMode::before {
+  content: url(<%= asset_path "toolbarButton-presentationMode.png" %>);
+}
+
+.toolbarButton.print::before,
+.secondaryToolbarButton.print::before {
+  content: url(<%= asset_path "toolbarButton-print.png" %>);
+  left: 6px;
+}
+html[dir="ltr"] .secondaryToolbarButton.print::before {
+  left: 3px;
+}
+html[dir="rtl"] .secondaryToolbarButton.print::before {
+  right: 3px;
+}
+
+.toolbarButton.openFile::before,
+.secondaryToolbarButton.openFile::before {
+  content: url(<%= asset_path "toolbarButton-openFile.png" %>);
+}
+
+.toolbarButton.download::before,
+.secondaryToolbarButton.download::before {
+  content: url(<%= asset_path "toolbarButton-download.png" %>);
+}
+
+.toolbarButton.bookmark {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -690,33 +870,104 @@
   padding-top: 4px;
 }
 
-#toolbarViewer .toolbarButton.bookmark::before {
-  content: url(<%= asset_path 'toolbarButton-bookmark.png' %>);
+#viewBookmark[href='#'] {
+  opacity: .5;
+  pointer-events: none;
 }
-    
+
+.toolbarButton.bookmark::before {
+  content: url(<%= asset_path "toolbarButton-bookmark.png" %>);
+}
+
 #viewThumbnail.toolbarButton::before {
-  display: inline-block;
-  content: url(<%= asset_path 'toolbarButton-viewThumbnail.png' %>);
+  content: url(<%= asset_path "toolbarButton-viewThumbnail.png" %>);
 }
-    
+
 #viewOutline.toolbarButton::before {
-  display: inline-block;
-  content: url(<%= asset_path 'toolbarButton-viewOutline.png' %>);
+  content: url(<%= asset_path "toolbarButton-viewOutline.png" %>);
 }
 
-#viewSearch.toolbarButton::before {
-  display: inline-block;
-  content: url(<%= asset_path 'toolbarButton-search.png' %>);
+#viewFind.toolbarButton::before {
+  content: url(<%= asset_path "toolbarButton-search.png" %>);
 }
 
+.secondaryToolbarButton {
+  position: relative;
+  margin: 0 0 4px 0;
+  padding: 3px 0 1px 0;
+  height: auto;
+  min-height: 25px;
+  width: auto;
+  min-width: 100%;
+  white-space: normal;
+}
+html[dir="ltr"] .secondaryToolbarButton {
+  padding-left: 24px;
+  text-align: left;
+}
+html[dir="rtl"] .secondaryToolbarButton {
+  padding-right: 24px;
+  text-align: right;
+}
 
-#toolbarViewer .toolbarField {
+#secondaryToolbarButtonContainer :last-child {
+  margin-bottom: 0;
+}
+
+html[dir="ltr"] .secondaryToolbarButton > span {
+  padding-right: 4px;
+}
+html[dir="rtl"] .secondaryToolbarButton > span {
+  padding-left: 4px;
+}
+
+.secondaryToolbarButton.firstPage::before {
+  content: url(<%= asset_path "secondaryToolbarButton-firstPage.png" %>);
+}
+
+.secondaryToolbarButton.lastPage::before {
+  content: url(<%= asset_path "secondaryToolbarButton-lastPage.png" %>);
+}
+
+.secondaryToolbarButton.rotateCcw::before {
+  content: url(<%= asset_path "secondaryToolbarButton-rotateCcw.png" %>);
+}
+
+.secondaryToolbarButton.rotateCw::before {
+  content: url(<%= asset_path "secondaryToolbarButton-rotateCw.png" %>);
+}
+
+.verticalToolbarSeparator {
+  display: block;
+  padding: 8px 0;
+  margin: 8px 4px;
+  width: 1px;
+  background-color: hsla(0,0%,0%,.5);
+  box-shadow: 0 0 0 1px hsla(0,0%,100%,.08);
+}
+html[dir='ltr'] .verticalToolbarSeparator {
+  margin-left: 2px;
+}
+html[dir='rtl'] .verticalToolbarSeparator {
+  margin-right: 2px;
+}
+
+.horizontalToolbarSeparator {
+  display: block; 
+  margin: 0 0 4px 0;
+  height: 1px;
+  width: 100%;
+  background-color: hsla(0,0%,0%,.5);
+  box-shadow: 0 0 0 1px hsla(0,0%,100%,.08);
+}
+
+.toolbarField {
   padding: 3px 6px;
   margin: 4px 0 4px 0;
   border: 1px solid transparent;
   border-radius: 2px;
   background-color: hsla(0,0%,100%,.09);
-  background-image: -moz-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
+  background-image: linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
   background-clip: padding-box;
   border: 1px solid hsla(0,0%,0%,.35);
   border-color: hsla(0,0%,0%,.32) hsla(0,0%,0%,.38) hsla(0,0%,0%,.42);
@@ -726,12 +977,17 @@
   font-size: 12px;
   line-height: 14px;
   outline-style: none;
-  -moz-transition-property: background-color, border-color, box-shadow;
-  -moz-transition-duration: 150ms;
-  -moz-transition-timing-function: ease;
+  transition-property: background-color, border-color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
 }
 
-#toolbarViewer .toolbarField.pageNumber {
+.toolbarField[type=checkbox] {
+  display: inline-block;
+  margin: 8px 0px;
+}
+
+.toolbarField.pageNumber {
   min-width: 16px;
   text-align: right;
   width: 40px;
@@ -763,8 +1019,8 @@
   font-size: 12px;
   line-height: 14px;
   text-align: left;
-  -webkit-user-select:none;
-  -moz-user-select:none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
   cursor: default;
 }
 
@@ -778,16 +1034,16 @@
 }
 
 .thumbnail {
-  margin-bottom: 15px;
   float: left;
 }
 
 .thumbnail:not([data-loaded]) {
   border: 1px dashed rgba(255, 255, 255, 0.5);
+  margin-bottom: 10px;
 }
 
 .thumbnailImage {
-  -moz-transition-duration: 150ms;
+  transition-duration: 150ms;
   border: 1px solid transparent;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
   opacity: 0.8;
@@ -797,9 +1053,9 @@
 .thumbnailSelectionRing {
   border-radius: 2px;
   padding: 7px;
-  -moz-transition-duration: 150ms;
+  transition-duration: 150ms;
 }
-    
+
 a:focus > .thumbnail > .thumbnailSelectionRing > .thumbnailImage,
 .thumbnail:hover > .thumbnailSelectionRing > .thumbnailImage {
   opacity: .9;
@@ -808,7 +1064,7 @@ a:focus > .thumbnail > .thumbnailSelectionRing > .thumbnailImage,
 a:focus > .thumbnail > .thumbnailSelectionRing,
 .thumbnail:hover > .thumbnailSelectionRing {
   background-color: hsla(0,0%,100%,.15);
-  background-image: -moz-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
+  background-image: linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
   background-clip: padding-box;
   box-shadow: 0 1px 0 hsla(0,0%,100%,.05) inset,
               0 0 1px hsla(0,0%,100%,.2) inset,
@@ -823,7 +1079,7 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
 
 .thumbnail.selected > .thumbnailSelectionRing {
   background-color: hsla(0,0%,100%,.3);
-  background-image: -moz-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
+  background-image: linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
   background-clip: padding-box;
   box-shadow: 0 1px 0 hsla(0,0%,100%,.05) inset,
               0 0 1px hsla(0,0%,100%,.1) inset,
@@ -838,35 +1094,43 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
   bottom: 0;
   padding: 4px 4px 0;
   overflow: auto;
-  -webkit-user-select:none;
-  -moz-user-select:none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 
-.outlineItem > .outlineItems {
+html[dir='ltr'] .outlineItem > .outlineItems {
   margin-left: 20px;
 }
 
-.outlineItem > a,
-#searchResults > a {
+html[dir='rtl'] .outlineItem > .outlineItems {
+  margin-right: 20px;
+}
+
+.outlineItem > a {
   text-decoration: none;
   display: inline-block;
   min-width: 95%;
-  height: 20px;
-  padding: 2px 0 0 10px;
+  height: auto;
   margin-bottom: 1px;
   border-radius: 2px;
   color: hsla(0,0%,100%,.8);
   font-size: 13px;
   line-height: 15px;
-  -moz-user-select:none;
-  cursor: default;
-  white-space: nowrap;
+  -moz-user-select: none;
+  white-space: normal;
 }
 
-.outlineItem > a:hover,
-#searchResults > a:hover {
+html[dir='ltr'] .outlineItem > a {
+  padding: 2px 0 5px 10px;
+}
+
+html[dir='rtl'] .outlineItem > a {
+  padding: 2px 10px 5px 0;
+}
+
+.outlineItem > a:hover {
   background-color: hsla(0,0%,100%,.02);
-  background-image: -moz-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
+  background-image: linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
   background-clip: padding-box;
   box-shadow: 0 1px 0 hsla(0,0%,100%,.05) inset,
               0 0 1px hsla(0,0%,100%,.2) inset,
@@ -876,7 +1140,7 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
 
 .outlineItem.selected {
   background-color: hsla(0,0%,100%,.08);
-  background-image: -moz-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
+  background-image: linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
   background-clip: padding-box;
   box-shadow: 0 1px 0 hsla(0,0%,100%,.05) inset,
               0 0 1px hsla(0,0%,100%,.1) inset,
@@ -884,49 +1148,19 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
   color: hsla(0,0%,100%,1);
 }
 
-.noOutline,
 .noResults {
   font-size: 12px;
   color: hsla(0,0%,100%,.8);
   font-style: italic;
+  cursor: default;
 }
 
-#searchScrollView {
+#findScrollView {
   position: absolute;
   top: 10px;
   bottom: 10px;
   left: 10px;
   width: 280px;
-}
-
-#searchToolbar {
-  padding-left: 0px;
-  right: 0px;
-  padding-top: 0px;
-  padding-bottom: 5px;
-}
-
-#searchToolbar > input {
-  margin-left: 4px;
-  width: 124px;
-}
-
-#searchToolbar button {
-  width: auto;
-  margin: 0;
-  padding: 0 6px;
-  height: 22px;
-}
-
-#searchResults {
-  overflow: auto;
-  position: absolute;
-  top: 30px;
-  bottom: 0px;
-  left: 0px;
-  right: 0;
-  padding: 4px 4px 0;
-  font-size: smaller;
 }
 
 #sidebarControls {
@@ -937,8 +1171,12 @@ a:focus > .thumbnail > .thumbnailSelectionRing,
   bottom: 35px;
 }
 
+.canvasWrapper {
+  overflow: hidden;
+}
+
 canvas {
-  margin: auto;
+  margin: 0;
   display: block;
 }
 
@@ -946,25 +1184,25 @@ canvas {
   direction: ltr;
   width: 816px;
   height: 1056px;
-  margin: 10px auto;
+  margin: 1px auto -8px auto;
   position: relative;
-  overflow: hidden;
-  -webkit-box-shadow: 0px 4px 10px #000;
-  -moz-box-shadow: 0px 4px 10px #000;
-  box-shadow: 0px 4px 10px #000;
+  overflow: visible;
+  border: 9px solid transparent;
+  background-clip: content-box;
+  border-image: url(<%= asset_path "shadow.png" %>) 9 9 repeat;
   background-color: white;
 }
 
-.page > a {
+.page > a,
+.annotationLayer > a {
   display: block;
   position: absolute;
 }
 
-.page > a:hover {
+.page > a:hover,
+.annotationLayer > a:hover {
   opacity: 0.2;
   background: #ff0;
-  -webkit-box-shadow: 0px 2px 10px #ff0;
-  -moz-box-shadow: 0px 2px 10px #ff0;
   box-shadow: 0px 2px 10px #ff0;
 }
 
@@ -975,83 +1213,7 @@ canvas {
   top: 0;
   right: 0;
   bottom: 0;
-  background: url(<%= asset_path 'loading-icon.gif' %>) center no-repeat;
-}
-
-#loadingBox {
-  position: absolute;
-  top: 50%;
-  margin-top: -25px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  color: #ddd;
-  font-size: 14px;
-}
-
-#loadingBar {
-  display: inline-block;
-  clear: both;
-  margin: 0px;
-  margin-top: 5px;
-  line-height: 0;
-  border-radius: 2px;
-  width: 200px;
-  height: 25px;
-
-  background-color: hsla(0,0%,0%,.3);
-  background-image: -moz-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
-  background-image: -webkit-linear-gradient(hsla(0,0%,100%,.05), hsla(0,0%,100%,0));
-  border: 1px solid #000;
-  box-shadow: 0 1px 1px hsla(0,0%,0%,.1) inset,
-              0 0 1px hsla(0,0%,0%,.2) inset,
-              0 0 1px 1px rgba(255, 255, 255, 0.1);
-}
-
-#loadingBar .progress {
-  display: inline-block;
-  float: left;
-
-  background: #666;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b2b2b2), color-stop(100%,#898989));
-  background: -webkit-linear-gradient(top, #b2b2b2 0%,#898989 100%);
-  background: -moz-linear-gradient(top, #b2b2b2 0%,#898989 100%);
-  background: -ms-linear-gradient(top, #b2b2b2 0%,#898989 100%);
-  background: -o-linear-gradient(top, #b2b2b2 0%,#898989 100%);
-  background: linear-gradient(top, #b2b2b2 0%,#898989 100%);    
-
-  border-top-left-radius: 2px;
-  border-bottom-left-radius: 2px;
-
-  width: 0%;
-  height: 100%;
-}
-
-#loadingBar .progress.full {
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
-}
-
-#loadingBar .progress.indeterminate {
-  width: 100%;
-  height: 25px;
-  background-image: -moz-linear-gradient( 30deg, #404040, #404040 15%, #898989, #404040 85%, #404040);
-  background-image: -webkit-linear-gradient( 30deg, #404040, #404040 15%, #898989, #404040 85%, #404040);
-  background-image: -ms-linear-gradient( 30deg, #404040, #404040 15%, #898989, #404040 85%, #404040);
-  background-image: -o-linear-gradient( 30deg, #404040, #404040 15%, #898989, #404040 85%, #404040);
-  background-size: 75px 25px;
-  -moz-animation: progressIndeterminate 1s linear infinite;
-  -webkit-animation: progressIndeterminate 1s linear infinite;
-}
-
-@-moz-keyframes progressIndeterminate {
-  from { background-position: 0px 0px; }
-  to { background-position: 75px 0px; }
-}
-
-@-webkit-keyframes progressIndeterminate {
-  from { background-position: 0px 0px; }
-  to { background-position: 75px 0px; }
+  background: url(<%= asset_path "loading-icon.gif" %>) center no-repeat;
 }
 
 .textLayer {
@@ -1062,12 +1224,39 @@ canvas {
   bottom: 0;
   color: #000;
   font-family: sans-serif;
+  overflow: hidden;
 }
 
 .textLayer > div {
   color: transparent;
   position: absolute;
-  line-height:1.3;
+  line-height: 1;
+  white-space: pre;
+  cursor: text;
+}
+
+.textLayer .highlight {
+  margin: -1px;
+  padding: 1px;
+
+  background-color: rgba(180, 0, 170, 0.2);
+  border-radius: 4px;
+}
+
+.textLayer .highlight.begin {
+  border-radius: 4px 0px 0px 4px;
+}
+
+.textLayer .highlight.end {
+  border-radius: 0px 4px 4px 0px;
+}
+
+.textLayer .highlight.middle {
+  border-radius: 0px;
+}
+
+.textLayer .highlight.selected {
+  background-color: rgba(0, 100, 0, 0.2);
 }
 
 /* TODO: file FF bug to support ::-moz-selection:window-inactive
@@ -1076,30 +1265,26 @@ canvas {
 ::selection { background:rgba(0,0,255,0.3); }
 ::-moz-selection { background:rgba(0,0,255,0.3); }
 
-.annotComment > div {
+.annotText > div {
+  z-index: 200;
   position: absolute;
-}
-
-.annotComment > img {
-  position: absolute;
-}
-
-.annotComment > img:hover {
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-.annotComment > div {
-  padding: 0.2em;
+  padding: 0.6em;
   max-width: 20em;
-  background-color: #F1E47B;
-  -webkit-box-shadow: 0px 2px 10px #333;
-  -moz-box-shadow: 0px 2px 10px #333;
+  background-color: #FFFF99;
   box-shadow: 0px 2px 10px #333;
+  border-radius: 7px;
 }
 
-.annotComment > div > h1 {
-  font-weight: normal;
+.annotText > img {
+  position: absolute;
+  opacity: 0.6;
+}
+
+.annotText > img:hover {
+  opacity: 1;
+}
+
+.annotText > div > h1 {
   font-size: 1.2em;
   border-bottom: 1px solid #000000;
   margin: 0px;
@@ -1111,10 +1296,12 @@ canvas {
   left: 0;
   position: absolute;
   right: 0;
-  top: 32px;
   z-index: 1000;
   padding: 3px;
   font-size: 0.8em;
+}
+.loadingInProgress #errorWrapper {
+  top: 39px;
 }
 
 #errorMessageLeft {
@@ -1204,16 +1391,24 @@ canvas {
 
 @page {
   margin: 0;
-} 
+}
 
 #printContainer {
   display: none;
 }
 
 @media print {
+  /* General rules for printing. */
+  body {
+    background: transparent none;
+  }
+
   /* Rules for browsers that don't support mozPrintCallback. */
-  #sidebarContainer, .toolbar, #loadingBox, #errorWrapper, .textLayer {
+  #sidebarContainer, #secondaryToolbar, .toolbar, #loadingBox, #errorWrapper, .textLayer {
     display: none;
+  }
+  #viewerContainer {
+    overflow: visible;
   }
 
   #mainContainer, #viewerContainer, .page, .page canvas {
@@ -1225,8 +1420,7 @@ canvas {
   .page {
     float: left;
     display: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
+    border: none;
     box-shadow: none;
   }
 
@@ -1248,57 +1442,125 @@ canvas {
   }
 }
 
-@media all and (max-width: 950px) {
-  #outerContainer[dir='ltr'].sidebarMoving .outerCenter,
-  #outerContainer[dir='ltr'].sidebarOpen .outerCenter {
+.visibleLargeView,
+.visibleMediumView,
+.visibleSmallView {
+  display: none;
+}
+
+@media all and (max-width: 960px) {
+  html[dir='ltr'] #outerContainer.sidebarMoving .outerCenter,
+  html[dir='ltr'] #outerContainer.sidebarOpen .outerCenter {
     float: left;
-    left: 180px;
+    left: 185px;
   }
-  #outerContainer[dir='rtl'].sidebarMoving .outerCenter,
-  #outerContainer[dir='rtl'].sidebarOpen .outerCenter {
+  html[dir='rtl'] #outerContainer.sidebarMoving .outerCenter,
+  html[dir='rtl'] #outerContainer.sidebarOpen .outerCenter {
     float: right;
-    right: 180px;
+    right: 185px;
+  }
+}
+
+@media all and (max-width: 900px) {
+  .sidebarOpen .hiddenLargeView {
+    display: none;
+  }
+  .sidebarOpen .visibleLargeView {
+    display: inherit;
+  }
+}
+
+@media all and (max-width: 860px) {
+  .sidebarOpen .hiddenMediumView {
+    display: none;
+  }
+  .sidebarOpen .visibleMediumView {
+    display: inherit;
   }
 }
 
 @media all and (max-width: 770px) {
   #sidebarContainer {
-    top: 33px;
+    top: 32px;
     z-index: 100;
+  }
+  .loadingInProgress #sidebarContainer {
+    top: 39px;
   }
   #sidebarContent {
     top: 32px;
     background-color: hsla(0,0%,0%,.7);
   }
-  #thumbnailView, #outlineView {
-    top: 66px;
-  }
 
-  #outerContainer[dir='ltr'].sidebarOpen > #mainContainer {
+  html[dir='ltr'] #outerContainer.sidebarOpen > #mainContainer {
     left: 0px;
   }
-  #outerContainer[dir='rtl'].sidebarOpen > #mainContainer {
+  html[dir='rtl'] #outerContainer.sidebarOpen > #mainContainer {
     right: 0px;
   }
 
-  #outerContainer[dir='ltr'] .outerCenter {
+  html[dir='ltr'] .outerCenter {
     float: left;
-    left: 180px;
+    left: 185px;
   }
-  #outerContainer[dir='rtl'] .outerCenter {
+  html[dir='rtl'] .outerCenter {
     float: right;
-    right: 180px;
+    right: 185px;
+  }
+
+  #outerContainer .hiddenLargeView,
+  #outerContainer .hiddenMediumView {
+    display: inherit;
+  }
+  #outerContainer .visibleLargeView,
+  #outerContainer .visibleMediumView {
+    display: none;
+  }
+}
+
+@media all and (max-width: 700px) {
+  #outerContainer .hiddenLargeView {
+    display: none;
+  }
+  #outerContainer .visibleLargeView {
+    display: inherit;
+  }
+}
+
+@media all and (max-width: 660px) {
+  #outerContainer .hiddenMediumView {
+    display: none;
+  }
+  #outerContainer .visibleMediumView {
+    display: inherit;
   }
 }
 
 @media all and (max-width: 600px) {
-  #toolbarViewerRight {
+  .hiddenSmallView {
     display: none;
+  }
+  .visibleSmallView {
+    display: inherit;
+  }
+  html[dir='ltr'] #outerContainer.sidebarMoving .outerCenter,
+  html[dir='ltr'] #outerContainer.sidebarOpen .outerCenter,
+  html[dir='ltr'] .outerCenter {
+    left: 156px;
+  }
+  html[dir='rtl'] #outerContainer.sidebarMoving .outerCenter,
+  html[dir='rtl'] #outerContainer.sidebarOpen .outerCenter,
+  html[dir='rtl'] .outerCenter {
+    right: 156px;
+  }
+  .toolbarButtonSpacer {
+    width: 0;
   }
 }
 
-@media all and (max-width: 500px) {
+@media all and (max-width: 510px) {
   #scaleSelectContainer, #pageNumberLabel {
     display: none;
   }
 }
+
